@@ -1,0 +1,389 @@
+:root {
+    --bg: #f3f6f8;
+    --card: #fff;
+    --text: #16242c;
+    --muted: #5d6f7a;
+    --line: #d5dee3;
+    --accent: #1f5c7a;
+    --on-accent: #fff;
+    --mine: #fde9a8;
+    --mine-line: #c9a21f;
+    --other: #dbe7ee;
+    --other-line: #8fb0c2;
+    --bad: #b3261e;
+    --ok: #17653a;
+    color-scheme: light;
+    box-sizing: border-box;
+    padding-top: env(safe-area-inset-top, 0px);
+    padding-bottom: env(safe-area-inset-bottom, 0px)
+}
+
+@media (prefers-color-scheme:dark) {
+    :root:not([data-theme="light"]) {
+        --bg: #0f181d;
+        --card: #17232a;
+        --text: #e6eef2;
+        --muted: #9bb0ba;
+        --line: #2b3c45;
+        --accent: #6fb3d2;
+        --on-accent: #0f181d;
+        --mine: #4a3d12;
+        --mine-line: #d1ad2e;
+        --other: #22343e;
+        --other-line: #4f7285;
+        --bad: #ff8a80;
+        --ok: #7ddba0;
+        color-scheme: dark
+    }
+}
+
+:root[data-theme="dark"] {
+    --bg: #0f181d;
+    --card: #17232a;
+    --text: #e6eef2;
+    --muted: #9bb0ba;
+    --line: #2b3c45;
+    --accent: #6fb3d2;
+    --on-accent: #0f181d;
+    --mine: #4a3d12;
+    --mine-line: #d1ad2e;
+    --other: #22343e;
+    --other-line: #4f7285;
+    --bad: #ff8a80;
+    --ok: #7ddba0;
+    color-scheme: dark
+}
+
+* {
+    box-sizing: border-box
+}
+
+html,
+body {
+    margin: 0
+}
+
+body {
+    background: var(--bg);
+    color: var(--text);
+    font: 15px/1.45 "Segoe UI", system-ui, -apple-system, Roboto, Arial, sans-serif
+}
+
+header {
+    background: var(--accent);
+    color: var(--on-accent);
+    padding: 14px 16px;
+    display: flex;
+    gap: 12px;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap
+}
+
+h1 {
+    font-size: 18px;
+    margin: 0;
+    font-weight: 700
+}
+
+header label {
+    font-size: 13px;
+    display: flex;
+    gap: 8px;
+    align-items: center
+}
+
+select,
+input {
+    font: inherit;
+    color: var(--text);
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    padding: 8px 10px;
+    min-height: 40px
+}
+
+:focus-visible {
+    outline: 3px solid var(--mine-line);
+    outline-offset: 2px
+}
+
+.wrap {
+    max-width: 980px;
+    margin: 0 auto;
+    padding: 16px
+}
+
+.week {
+    display: flex;
+    gap: 6px;
+    align-items: stretch;
+    margin-bottom: 16px
+}
+
+.week button {
+    font: inherit;
+    color: var(--text);
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    cursor: pointer;
+    padding: 8px 4px;
+    flex: 1;
+    min-width: 0;
+    text-align: center
+}
+
+.week .nav {
+    flex: 0 0 40px;
+    font-size: 18px
+}
+
+.week .d b {
+    display: block;
+    font-size: 15px
+}
+
+.week .d span {
+    font-size: 12px;
+    color: var(--muted)
+}
+
+.week .d.on {
+    background: var(--accent);
+    border-color: var(--accent);
+    color: var(--on-accent)
+}
+
+.week .d.on span {
+    color: var(--on-accent);
+    opacity: .85
+}
+
+.cols {
+    display: grid;
+    grid-template-columns: 1fr 300px;
+    gap: 16px;
+    align-items: start
+}
+
+@media (max-width:760px) {
+    .cols {
+        grid-template-columns: 1fr
+    }
+}
+
+.panel {
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    padding: 16px
+}
+
+h2 {
+    font-size: 17px;
+    margin: 0 0 4px;
+    text-transform: capitalize
+}
+
+.sub {
+    color: var(--muted);
+    font-size: 13px;
+    margin: 0 0 12px
+}
+
+.tl {
+    position: relative;
+    margin-left: 48px;
+    cursor: copy
+}
+
+.hr {
+    position: absolute;
+    left: 0;
+    right: 0;
+    border-top: 1px solid var(--line)
+}
+
+.hr i {
+    position: absolute;
+    left: -46px;
+    top: -9px;
+    font-size: 12px;
+    color: var(--muted);
+    font-style: normal
+}
+
+.blk {
+    position: absolute;
+    left: 6px;
+    right: 0;
+    border-radius: 8px;
+    border: 1px solid;
+    padding: 4px 8px;
+    overflow: hidden;
+    cursor: default;
+    font-size: 13px;
+    line-height: 1.3
+}
+
+.blk.mine {
+    background: var(--mine);
+    border-color: var(--mine-line)
+}
+
+.blk.other {
+    background: var(--other);
+    border-color: var(--other-line)
+}
+
+.blk b {
+    font-size: 14px
+}
+
+.blk small {
+    display: block;
+    color: var(--muted)
+}
+
+.blk button {
+    position: absolute;
+    top: 4px;
+    right: 4px;
+    font: inherit;
+    font-size: 12px;
+    background: var(--card);
+    color: var(--bad);
+    border: 1px solid var(--line);
+    border-radius: 6px;
+    padding: 2px 8px;
+    cursor: pointer
+}
+
+.sel {
+    position: absolute;
+    left: 6px;
+    right: 0;
+    border: 2px dashed var(--accent);
+    border-radius: 8px;
+    background: color-mix(in srgb, var(--accent) 12%, transparent);
+    pointer-events: none
+}
+
+form label {
+    display: block;
+    font-size: 13px;
+    color: var(--muted);
+    margin-bottom: 10px
+}
+
+form input {
+    width: 100%;
+    margin-top: 4px
+}
+
+.row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px
+}
+
+.go {
+    width: 100%;
+    font: inherit;
+    font-weight: 700;
+    background: var(--accent);
+    color: var(--on-accent);
+    border: 0;
+    border-radius: 8px;
+    min-height: 44px;
+    cursor: pointer
+}
+
+#msg {
+    min-height: 22px;
+    margin: 10px 0 0;
+    font-size: 14px
+}
+
+#msg.err {
+    color: var(--bad)
+}
+
+#msg.ok {
+    color: var(--ok)
+}
+
+.note {
+    color: var(--muted);
+    font-size: 12px;
+    margin-top: 16px
+}
+
+[hidden] {
+    display: none !important
+}
+
+#quem {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    font-size: 14px
+}
+
+#quem button {
+    font: inherit;
+    font-size: 13px;
+    background: transparent;
+    color: var(--on-accent);
+    border: 1px solid currentColor;
+    border-radius: 8px;
+    padding: 6px 12px;
+    cursor: pointer
+}
+
+.entrada {
+    max-width: 380px;
+    margin: 24px auto
+}
+
+.alt {
+    width: 100%;
+    font: inherit;
+    font-weight: 600;
+    background: transparent;
+    color: var(--accent);
+    border: 1px solid var(--accent);
+    border-radius: 8px;
+    min-height: 44px;
+    cursor: pointer;
+    margin-top: 8px
+}
+
+#lmsg {
+    min-height: 22px;
+    margin: 10px 0 0;
+    font-size: 14px
+}
+
+#lmsg.err {
+    color: var(--bad)
+}
+
+#lmsg.ok {
+    color: var(--ok)
+}
+
+.troca {
+    display: block;
+    width: 100%;
+    background: none;
+    border: 0;
+    color: var(--accent);
+    font: inherit;
+    text-decoration: underline;
+    cursor: pointer;
+    margin-top: 12px;
+    padding: 8px 0
+}
