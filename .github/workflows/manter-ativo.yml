@@ -1,0 +1,26 @@
+# Nome que aparece na aba Actions do GitHub
+name: Manter banco ativo
+
+on:
+  schedule:
+    # Roda toda segunda e quinta, às 12h UTC (9h em Brasília).
+    # Duas vezes por semana dá folga para o limite de 7 dias do Supabase.
+    - cron: "0 12 * * 1,4"
+  # Permite rodar na mão, pelo botão "Run workflow", para testar
+  workflow_dispatch:
+
+jobs:
+  ping:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Consultar o banco
+        run: |
+          # Pede 1 reserva ao Supabase e guarda só o código da resposta.
+          # A chave abaixo é a chave pública (a mesma do index.html), então não precisa de segredo.
+          codigo=$(curl -s -o /dev/null -w "%{http_code}" \
+            "https://vfzqbafhnbnpcehsmxom.supabase.co/rest/v1/reservas?select=id&limit=1" \
+            -H "apikey: sb_publishable_FP6FDTWUGgeUQWmqQvmOtA_i1JHDyjl")
+          echo "Resposta do Supabase: $codigo"
+          # Se der erro de servidor ou nem conectar (projeto pausado, por exemplo),
+          # a tarefa falha e o GitHub avisa você por e-mail.
+          if [ "$codigo" -ge 500 ] || [ "$codigo" -eq 0 ]; then exit 1; fi
