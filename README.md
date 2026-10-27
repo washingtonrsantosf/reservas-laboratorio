@@ -7,6 +7,7 @@ Site publicado: https://agendainfo.netlify.app
 O projeto nasceu de uma planilha de controle de reservas (data, dia, início, fim, professor e disponibilidade) e foi transformado em um sistema com banco de dados, que funciona no computador e no celular.
 
 O que o site faz:
+
 Login e criação de conta com e-mail e senha
 Agenda da semana (segunda a sexta), com navegação entre semanas
 Linha do tempo do dia, com as reservas de cada professor
