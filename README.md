@@ -9,15 +9,27 @@ O projeto nasceu de uma planilha de controle de reservas (data, dia, início, fi
 O que o site faz:
 
 Login e criação de conta com e-mail e senha
+
 Agenda da semana (segunda a sexta), com navegação entre semanas
+
 Linha do tempo do dia, com as reservas de cada professor
+
 Reserva de horário tocando em um espaço livre da agenda ou preenchendo início, fim e turma
+
 Bloqueio de conflito: não é possível reservar um horário já ocupado
+
 Cancelamento: o professor cancela as próprias reservas; o administrador cancela qualquer uma
+
 Destaque do dia de hoje, dias passados apagados e linha vermelha do horário atual
+
 Modo escuro automático, conforme a configuração do aparelho
+
 Tecnologias
+
 HTML, CSS e JavaScript puro (sem frameworks e sem etapa de build)
+
 Supabase: banco de dados e login com e-mail e senha
+
 GitHub: guarda o código
+
 Netlify: publica o site
