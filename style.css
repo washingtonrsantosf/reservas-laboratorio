@@ -1,0 +1,553 @@
+/* Cores seguem a planilha: azul = hoje, amarelo = reservado, verde = livre, cinza = passado */
+:root {
+    --bg: #edf1f5;
+    --card: #fff;
+    --field: #f7f9fb;
+    --text: #101c2b;
+    --muted: #586677;
+    --line: #dbe2ea;
+    --brand: #0f3554;
+    --on-brand: #fff;
+    --accent: #0f3554;
+    --mine: #ffefb3;
+    --mine-line: #d9a000;
+    --other: #e1e8f0;
+    --other-line: #7b90a6;
+    --today: #c3e2f6;
+    --today-line: #2b8fd0;
+    --free: #cdeed6;
+    --free-text: #1d6b36;
+    --now: #e5484d;
+    --bad: #b3261e;
+    --ok: #17653a;
+    --stripe: rgba(16, 28, 43, .035);
+    color-scheme: light;
+    box-sizing: border-box;
+    padding-top: env(safe-area-inset-top, 0px);
+    padding-bottom: env(safe-area-inset-bottom, 0px)
+}
+
+@media (prefers-color-scheme:dark) {
+    :root:not([data-theme="light"]) {
+        --bg: #0b131b;
+        --card: #121e2a;
+        --field: #0d1823;
+        --text: #e8eef4;
+        --muted: #9aabbb;
+        --line: #243445;
+        --brand: #17283a;
+        --on-brand: #e8eef4;
+        --accent: #7cc0ea;
+        --mine: #4a3d12;
+        --mine-line: #e0b83a;
+        --other: #1c2c3b;
+        --other-line: #5f7d96;
+        --today: #173a55;
+        --today-line: #4fb0ee;
+        --free: #14382333;
+        --free-text: #7ddba0;
+        --stripe: rgba(255, 255, 255, .03);
+        --bad: #ff8a80;
+        --ok: #7ddba0;
+        color-scheme: dark
+    }
+}
+
+* {
+    box-sizing: border-box
+}
+
+html,
+body {
+    margin: 0
+}
+
+body {
+    background: var(--bg);
+    color: var(--text);
+    font: 15px/1.5 "Instrument Sans", "Segoe UI", system-ui, -apple-system, Roboto, Arial, sans-serif
+}
+
+h1,
+h2,
+.d b,
+.hr i,
+.go {
+    font-family: "Bricolage Grotesque", "Segoe UI", system-ui, sans-serif
+}
+
+/* ---------- topo ---------- */
+header {
+    background: var(--brand);
+    color: var(--on-brand);
+    padding: 12px 16px;
+    display: flex;
+    gap: 12px;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap
+}
+
+.brand {
+    display: flex;
+    gap: 10px;
+    align-items: center
+}
+
+.brand svg {
+    width: 30px;
+    height: 30px;
+    flex: none
+}
+
+h1 {
+    font-size: 19px;
+    margin: 0;
+    font-weight: 700;
+    letter-spacing: -.01em
+}
+
+#quem {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    font-size: 14px
+}
+
+.avatar {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: var(--today);
+    color: #0f3554;
+    display: grid;
+    place-items: center;
+    font: 700 14px "Bricolage Grotesque", system-ui, sans-serif;
+    text-transform: uppercase
+}
+
+.badge {
+    font-size: 12px;
+    font-weight: 600;
+    padding: 2px 10px;
+    border-radius: 99px;
+    background: var(--mine);
+    color: #4a3600
+}
+
+#quem button {
+    font: inherit;
+    font-size: 13px;
+    background: transparent;
+    color: inherit;
+    border: 1px solid currentColor;
+    border-radius: 10px;
+    padding: 6px 14px;
+    cursor: pointer
+}
+
+/* ---------- base ---------- */
+:focus-visible {
+    outline: 3px solid var(--today-line);
+    outline-offset: 2px
+}
+
+.wrap {
+    max-width: 1040px;
+    margin: 0 auto;
+    padding: 18px 16px
+}
+
+[hidden] {
+    display: none !important
+}
+
+/* ---------- semana ---------- */
+.month {
+    font: 600 15px "Bricolage Grotesque", system-ui, sans-serif;
+    color: var(--muted);
+    margin: 0 2px 8px;
+    text-transform: capitalize
+}
+
+.week {
+    display: flex;
+    gap: 8px;
+    align-items: stretch;
+    margin-bottom: 18px
+}
+
+.week button {
+    font: inherit;
+    color: var(--text);
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    cursor: pointer;
+    padding: 10px 4px;
+    flex: 1;
+    min-width: 0;
+    text-align: center
+}
+
+.week .nav {
+    flex: 0 0 42px;
+    font-size: 20px;
+    color: var(--muted)
+}
+
+.week .d b {
+    display: block;
+    font-size: 16px;
+    text-transform: capitalize
+}
+
+.week .d span {
+    font-size: 12px;
+    color: var(--muted)
+}
+
+.week .d span.free {
+    color: var(--free-text);
+    font-weight: 600
+}
+
+.week .d.past {
+    opacity: .55
+}
+
+.week .d.today {
+    background: var(--today);
+    border-color: var(--today-line)
+}
+
+.week .d.today b::before {
+    content: "";
+    display: inline-block;
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: var(--today-line);
+    margin-right: 6px;
+    vertical-align: middle
+}
+
+.week .d.on {
+    background: var(--brand);
+    border-color: var(--brand);
+    color: var(--on-brand);
+    opacity: 1
+}
+
+.week .d.on span,
+.week .d.on span.free {
+    color: var(--on-brand);
+    opacity: .85
+}
+
+.week .d.on.today b::before {
+    background: var(--today)
+}
+
+/* ---------- painéis ---------- */
+.cols {
+    display: grid;
+    grid-template-columns: 1fr 310px;
+    gap: 18px;
+    align-items: start
+}
+
+@media (max-width:760px) {
+    .cols {
+        grid-template-columns: 1fr
+    }
+
+    .week {
+        gap: 5px
+    }
+
+    .week .d b {
+        font-size: 14px
+    }
+}
+
+.panel {
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: 18px;
+    padding: 18px
+}
+
+h2 {
+    font-size: 20px;
+    margin: 0 0 2px;
+    text-transform: capitalize;
+    letter-spacing: -.01em
+}
+
+.sub {
+    color: var(--muted);
+    font-size: 13px;
+    margin: 0 0 16px
+}
+
+/* ---------- agenda do dia ---------- */
+.tl {
+    position: relative;
+    margin-left: 50px;
+    cursor: copy;
+    /* faixas alternadas de 1 hora (60 min x 1,5 px = 90 px) */
+    background-image: repeating-linear-gradient(to bottom, transparent 0 90px, var(--stripe) 90px 180px)
+}
+
+.hr {
+    position: absolute;
+    left: 0;
+    right: 0;
+    border-top: 1px solid var(--line)
+}
+
+.hr i {
+    position: absolute;
+    left: -48px;
+    top: -9px;
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--muted);
+    font-style: normal;
+    font-variant-numeric: tabular-nums
+}
+
+.blk {
+    position: absolute;
+    left: 6px;
+    right: 0;
+    border-radius: 8px;
+    border-left: 5px solid;
+    padding: 6px 10px;
+    overflow: hidden;
+    cursor: default;
+    font-size: 13px;
+    line-height: 1.3;
+    z-index: 1
+}
+
+.blk.mine {
+    background: var(--mine);
+    border-color: var(--mine-line)
+}
+
+.blk.other {
+    background: var(--other);
+    border-color: var(--other-line)
+}
+
+.blk b {
+    font-size: 14px
+}
+
+.blk small {
+    display: block;
+    color: var(--muted)
+}
+
+.blk button {
+    position: absolute;
+    top: 6px;
+    right: 6px;
+    font: inherit;
+    font-size: 12px;
+    font-weight: 600;
+    background: var(--card);
+    color: var(--bad);
+    border: 1px solid var(--line);
+    border-radius: 99px;
+    padding: 2px 10px;
+    cursor: pointer
+}
+
+.sel {
+    position: absolute;
+    left: 6px;
+    right: 0;
+    border: 2px dashed var(--today-line);
+    border-radius: 8px;
+    background: color-mix(in srgb, var(--today-line) 14%, transparent);
+    pointer-events: none;
+    z-index: 1
+}
+
+/* linha do horário atual */
+.now {
+    position: absolute;
+    left: -6px;
+    right: 0;
+    height: 2px;
+    background: var(--now);
+    z-index: 2;
+    pointer-events: none
+}
+
+.now::before {
+    content: "";
+    position: absolute;
+    left: -4px;
+    top: -4px;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: var(--now)
+}
+
+/* ---------- formulários ---------- */
+form label {
+    display: block;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--muted);
+    margin-bottom: 12px
+}
+
+input {
+    font: inherit;
+    color: var(--text);
+    background: var(--field);
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    padding: 8px 12px;
+    min-height: 44px
+}
+
+input:focus {
+    border-color: var(--today-line)
+}
+
+form input {
+    width: 100%;
+    margin-top: 4px;
+    font-weight: 400
+}
+
+.row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px
+}
+
+.go {
+    width: 100%;
+    font-size: 16px;
+    font-weight: 600;
+    background: var(--brand);
+    color: var(--on-brand);
+    border: 0;
+    border-radius: 10px;
+    min-height: 48px;
+    cursor: pointer
+}
+
+#msg,
+#lmsg {
+    min-height: 22px;
+    margin: 12px 0 0;
+    font-size: 14px
+}
+
+#msg.err,
+#lmsg.err {
+    color: var(--bad)
+}
+
+#msg.ok,
+#lmsg.ok {
+    color: var(--ok)
+}
+
+.note {
+    color: var(--muted);
+    font-size: 12px;
+    margin-top: 16px
+}
+
+/* ---------- entrada ---------- */
+.entrada {
+    max-width: 400px;
+    margin: 28px auto
+}
+
+.entrada .brand {
+    margin-bottom: 14px
+}
+
+/* faixa de exemplo: mostra as cores da agenda (reservado, minha, livre) */
+.mini {
+    display: flex;
+    gap: 6px;
+    height: 44px;
+    margin-bottom: 18px
+}
+
+.mini i {
+    display: block;
+    border-radius: 8px;
+    border-left: 5px solid
+}
+
+.mini i:nth-child(1) {
+    flex: 3;
+    background: var(--other);
+    border-color: var(--other-line)
+}
+
+.mini i:nth-child(2) {
+    flex: 2;
+    background: var(--mine);
+    border-color: var(--mine-line)
+}
+
+.mini i:nth-child(3) {
+    flex: 1;
+    background: var(--free);
+    border-color: var(--free-text)
+}
+
+.mini i:nth-child(4) {
+    flex: 3;
+    background: var(--other);
+    border-color: var(--other-line)
+}
+
+.troca {
+    display: block;
+    width: 100%;
+    background: none;
+    border: 0;
+    color: var(--accent);
+    font: inherit;
+    font-weight: 600;
+    cursor: pointer;
+    margin-top: 12px;
+    padding: 8px 0
+}
+
+.troca:hover {
+    text-decoration: underline
+}
+
+@media (prefers-reduced-motion:no-preference) {
+
+    .week button,
+    .go,
+    #quem button,
+    input {
+        transition: background-color .15s, border-color .15s, filter .15s
+    }
+
+    .go:hover {
+        filter: brightness(1.15)
+    }
+
+    .week .d:hover {
+        border-color: var(--today-line)
+    }
+}
