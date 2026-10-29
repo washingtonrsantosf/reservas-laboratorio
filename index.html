@@ -281,7 +281,7 @@
                     var tenta = await db.auth.signInWithPassword({ email: email, password: senha });
                     var motivo = ((tenta.error && tenta.error.message) || "").toLowerCase();
                     if (motivo.indexOf("confirm") >= 0) {
-                        lsay("Você precisa confirmar o e-mail. Procure a mensagem na sua caixa de entrada (e no spam).", "err");
+                        lsay("Você precisa confirmar o e-mail. Procure a mensagem na sua caixa de entrada ou spam.", "err");
                         return;
                     }
                     lsay("Não foi possível criar a conta: " + cad.error.message, "err");
@@ -289,7 +289,7 @@
                 }
                 // Quando o e-mail já tem conta, o Supabase não dá erro: devolve um usuário sem "identities".
                 if (cad.data.user && cad.data.user.identities && cad.data.user.identities.length === 0) {
-                    lsay("Este e-mail já tem conta. Toque em \"Já tem conta? Entrar\".", "err");
+                    lsay("Já possui uma conta com esse e-mail cadastrado. Toque em \"Já tem conta? Entrar\".", "err");
                     return;
                 }
                 if (cad.data.session) {
@@ -304,7 +304,7 @@
             var res = await db.auth.signInWithPassword({ email: email, password: senha });
             if (res.error) {
                 var m = (res.error.message || "").toLowerCase();
-                lsay(m.indexOf("confirm") >= 0 ? "Você precisa confirmar o e-mail. Procure a mensagem na sua caixa de entrada (e no spam)." : "E-mail ou senha incorretos. Se ainda não tem conta, toque em \"Criar conta\".", "err");
+                lsay(m.indexOf("confirm") >= 0 ? "Você precisa confirmar o e-mail. Procure a mensagem na sua caixa de entrada ou no spam." : "E-mail ou senha incorretos. Se ainda não tem conta, toque em \"Criar conta\".", "err");
                 return;
             }
             lsay("");
